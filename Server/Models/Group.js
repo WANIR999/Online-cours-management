@@ -1,20 +1,17 @@
 const mongoose=require('mongoose')
-const coursschema= new mongoose.Schema({
+const Groupschema= new mongoose.Schema({
     name:{
         type:String,
         
     },
-    description:{
+    employees:{
         type:String,
-        
-    },
-    image:{
-        type:String,   
+      
     },
     Organism:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'organism'
-    },
+    }
 })
- const Cours= mongoose.model('cour',coursschema)
-module.exports= Cours
+ const Group= mongoose.model('group',Groupschema)
+module.exports= Group

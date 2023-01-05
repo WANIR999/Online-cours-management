@@ -1,5 +1,5 @@
 const mongoose=require('mongoose')
-const adminschema= new mongoose.Schema({
+const employeeschema= new mongoose.Schema({
     name:{
         type:String,
         
@@ -15,7 +15,11 @@ const adminschema= new mongoose.Schema({
     confirmation:{
         type:Boolean,
         default:false
+    },
+    Organism:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'organism'
     }
 })
- const Admin= mongoose.model('admin',adminschema)
-module.exports= Admin
+ const Employee= mongoose.model('employee',employeeschema)
+module.exports= Employee
