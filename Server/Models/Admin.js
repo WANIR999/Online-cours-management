@@ -12,6 +12,10 @@ const adminschema= new mongoose.Schema({
         type:String,
        
     },
+    superadmin:{
+        type:Boolean,
+        default:false
+    },
     confirmation:{
         type:Boolean,
         default:false

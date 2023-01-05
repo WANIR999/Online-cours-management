@@ -21,4 +21,4 @@ const sendMail= (target,subject,msg1,msg2,url)=> async()=>{
 }
 
 
-module.exports= {sendMail}
+module.exports= {sendMail}   
