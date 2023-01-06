@@ -15,6 +15,10 @@ const coursschema= new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'organism'
     },
+    group:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'group'
+    },
 })
  const Cours= mongoose.model('cour',coursschema)
 module.exports= Cours
