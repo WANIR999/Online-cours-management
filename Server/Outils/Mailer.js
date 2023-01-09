@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const sendMail= (target,subject,msg1,msg2,url)=> async()=>{
+const sendMail= async (target,subject,msg1,msg2,url)=>{
  
   let transporter = await nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -15,7 +15,7 @@ const sendMail= (target,subject,msg1,msg2,url)=> async()=>{
     from: '"mohammed" <'+process.env.NODEMAILER_EMAIL+'>', 
     to:target,
     subject:subject,  
-    html: `<b>${msg1}<a href="${url}">${msg2}</a></b>`,
+    html: `<b>${msg1} <br> <a href="${url}">${msg2}</a></b>`,
   };
   transporter.sendMail(info)
 }

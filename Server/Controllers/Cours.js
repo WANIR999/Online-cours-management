@@ -19,8 +19,8 @@ const getCourses= async(req,res)=>{
 const getCours= async(req,res)=>{
     const {body}=req
     const oneCours= await Cours.findOne({_id:body._id})
-    if(!oneCours) throw Error('admin not added')
-    res.json(CooneCoursurs)
+    if(!oneCours) throw Error('cours not found')
+    res.json(oneCours)
 }
 const UpdateCours= async(req,res)=>{
     const {body}=req
