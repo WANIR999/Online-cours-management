@@ -1,13 +1,13 @@
 const router=require('express').Router()
 const {TryCatch}=require('../Outils/TryCatch')
 const {errorHandler}= require('../middelwares/ErrorHandler')
-const {creatRole,UpdateRole,getRole,getRolees,removeRole}=require('../Controllers/Role')
+const {creatHistorique,getHistorique,getHistoriques}=require('../Controllers/Historique')
 const Upload = require('../middelwares/Upload')
 const {verify,postverif}=require('../middelwares/authVerification')
 
 
-router.post('/creat',verify(),TryCatch(creatRole))
-router.post('/remove',verify(),TryCatch(removeRole))
+router.get('/getone',verify(),TryCatch(getHistorique))
+router.get('/getall',verify(),TryCatch(getHistoriques))
 
 router.use(errorHandler)
 

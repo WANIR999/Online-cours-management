@@ -1,15 +1,16 @@
 const router=require('express').Router()
-const trycatch=require('../Outils/Trycatch')
-const errorHandler= require('../middelwares/ErrorHandler')
+const {TryCatch}=require('../Outils/TryCatch')
+const {errorHandler}= require('../middelwares/ErrorHandler')
 const {creatCours,UpdateCours,getCours,getCourses,removeCours}=require('../Controllers/Cours')
 const Upload = require('../middelwares/Upload')
+const {verify,postverif}=require('../middelwares/authVerification')
 
 
-router.post('/creat',Upload.single('image'),trycatch(creatCours))
-router.get('/getone',trycatch(getCours))
-router.get('/getall',trycatch(getCourses))
-router.post('/update',Upload.single('image'),trycatch(UpdateCours))
-router.post('/remove',trycatch(removeCours))
+router.post('/creat',verify(),Upload.single('image'),TryCatch(creatCours))
+router.get('/getone',verify(),TryCatch(getCours))
+router.get('/getall',verify(),TryCatch(getCourses))
+router.post('/update',verify(),Upload.single('image'),TryCatch(UpdateCours))
+router.post('/remove',verify(),TryCatch(removeCours))
 
 router.use(errorHandler)
 

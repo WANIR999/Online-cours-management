@@ -1,15 +1,16 @@
 const router=require('express').Router()
-const trycatch=require('../Outils/Trycatch')
-const errorHandler= require('../middelwares/ErrorHandler')
+const {TryCatch}=require('../Outils/TryCatch')
+const {errorHandler}= require('../middelwares/ErrorHandler')
 const {creatOrganism,UpdateOrganism,getOrganism,getOrganismes,removeOrganism}=require('../Controllers/Organism')
 const Upload = require('../middelwares/Upload')
+const {verify,postverif}=require('../middelwares/authVerification')
 
 
-router.post('/creat',trycatch(creatOrganism))
-router.get('/getone',trycatch(getOrganism))
-router.get('/getall',trycatch(getOrganismes))
-router.post('/update',trycatch(UpdateOrganism))
-router.post('/remove',trycatch(removeOrganism))
+router.post('/creat',verify(),TryCatch(creatOrganism))
+router.get('/getone',verify(),TryCatch(getOrganism))
+router.get('/getall',verify(),TryCatch(getOrganismes))
+router.post('/update',verify(),TryCatch(UpdateOrganism))
+router.post('/remove',verify(),TryCatch(removeOrganism))
 
 router.use(errorHandler)
 

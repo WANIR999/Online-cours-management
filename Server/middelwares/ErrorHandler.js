@@ -1,5 +1,5 @@
 const errorHandler= (error,req,res,next)=>{
-    res.send(error.message)
+    res.json({errmsg:error.message})
 }
 
-module.exports = errorHandler
+module.exports = {errorHandler}

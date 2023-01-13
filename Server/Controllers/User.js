@@ -9,6 +9,8 @@ const creatUser= async(req,res)=>{
     const password=body.password
     body.image=req.file.filename
     body.password= await bcrypt.hash(body.password,10)
+    const checking_email= await User.findOne({email:body.email})
+    if(checking_email) throw Error('cette adresse email existe dejas dans notre base de donnee')
     const newUser= await User.create({...body})
     if(!newUser) throw Error('User not added')
     const subject='creation de votre compte'

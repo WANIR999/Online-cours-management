@@ -1,10 +1,11 @@
 const router=require('express').Router()
-const trycatch=require('../Outils/Trycatch')
-const errorHandler= require('../middelwares/ErrorHandler')
+const {TryCatch}=require('../Outils/Trycatch')
+const {errorHandler}= require('../middelwares/ErrorHandler')
 const {login}=require('../Controllers/Auth')
+const {verify,postverif}=require('../middelwares/authVerification')
 
 
-router.post('/login',trycatch(login))
+router.post('/login',postverif(),TryCatch(login))
 
 router.use(errorHandler)
 

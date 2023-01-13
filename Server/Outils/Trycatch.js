@@ -6,4 +6,4 @@ const TryCatch= (action)=> async(req,res,next)=>{
     }
 }
 
-module.exports= TryCatch
+module.exports= {TryCatch}
