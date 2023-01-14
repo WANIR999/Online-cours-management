@@ -1,0 +1,29 @@
+.sidebox{
+    width: 150px;
+    height: 570px;
+    margin:2vh 1vh 0vh 1vh;
+    border-radius: 50px 10px;
+    background-color: #38598b;
+}
+
+.hover:hover {
+    color: gold !important;
+  }
+.sidebox{
+    width: 170px;
+    height: 570px;
+    margin:2vh 1vh 0vh 1vh;
+    border-radius: 10px;
+    background-color: #38598b;
+}
+
+.sidecolor{
+    background-color: #38598b !important;
+  }
+.rightbox{
+    width: 190px;
+    height: 570px;
+    margin:2vh 1vh 0vh 1vh;
+    border-radius: 10px;
+    background-color: #38598b;
+}
