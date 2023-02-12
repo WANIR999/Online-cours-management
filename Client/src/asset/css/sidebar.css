@@ -27,3 +27,12 @@
     border-radius: 10px;
     background-color: #38598b;
 }
+.fsmin{
+  font-size: 15px;
+}
+.fsminp{
+  font-size: 9px;
+}
+.maxw{
+  max-width: 140px !important;
+}

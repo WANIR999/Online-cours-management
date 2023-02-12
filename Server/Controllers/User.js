@@ -1,4 +1,6 @@
 const User = require('../Models/User')
+const Organism=require('../Models/Organism')
+const Role=require('../Models/Role')
 const bcrypt=require('bcryptjs')
 const {sendMail}= require('../Outils/Mailer')
 
@@ -6,9 +8,10 @@ const {sendMail}= require('../Outils/Mailer')
 
 const creatUser= async(req,res)=>{
     const {body}=req
-    const password=body.password
+    const password='p@ssword1'
     body.image=req.file.filename
-    body.password= await bcrypt.hash(body.password,10)
+    body.password= await bcrypt.hash(password,10)
+    body.confirmation= true
     const checking_email= await User.findOne({email:body.email})
     if(checking_email) throw Error('cette adresse email existe dejas dans notre base de donnee')
     const newUser= await User.create({...body})
@@ -22,9 +25,9 @@ const creatUser= async(req,res)=>{
 }
 const getUsers= async(req,res)=>{
     const {body}=req
-    const Useres= await User.find()
+    const Useres= await User.find().populate({path:'organism',model:Organism}).populate({path:'role',model:Role})
     if(!Useres) throw Error('User not found')
-    res.json(Useres)
+    res.json({data:Useres})
 }
 const getUser= async(req,res)=>{
     const {body}=req

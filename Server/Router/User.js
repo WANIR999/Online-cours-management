@@ -6,7 +6,7 @@ const Upload = require('../middelwares/Upload')
 const {verify,postverif}=require('../middelwares/authVerification')
 
 
-router.post('/creat',verify(),Upload.single('image'),TryCatch(creatUser))
+router.post('/creat',Upload.single('image'),TryCatch(creatUser))
 router.get('/getone',verify(),TryCatch(getUser))
 router.get('/getall',verify(),TryCatch(getUsers))
 router.post('/update',verify(),Upload.single('image'),TryCatch(UpdateUser))

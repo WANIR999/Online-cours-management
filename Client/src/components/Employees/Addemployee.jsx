@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../../asset/css/App.css";
 import FormInput from "../layout/Forminput";
+import { GetallOrganism } from "../../api/Organism";
+import { CreateUser } from "../../api/User";
 
 
 const AddEmployee = () => {
+
   const navigate=useNavigate()
-  const [errmsg,seterrmsg]=useState(false)
-  const [msg,setmsg]=useState(false)
+  const [image,setmg]=useState([])
+  const [err,seterr]=useState()
+  const [organism,setorganism]=useState([])
   const [values, setValues] = useState({
     name: "",
+    email: "",
+    organism: "",
   });
 
   const inputs = [
@@ -21,7 +27,7 @@ const AddEmployee = () => {
         errorMessage:
           "name should be 3-16 characters and shouldn't include any special character!",
         label: "Title",
-        pattern: "^[A-Za-z0-9]{3,16}$",
+        pattern: "^[A-Za-z0-9 ]{3,26}$",
         required: true,
       },
       {
@@ -33,23 +39,36 @@ const AddEmployee = () => {
         label: "Email",
         required: true,
       },
-      {
-        id: 3,
-        name: "password",
-        type: "password",
-        placeholder: "Password",
-        errorMessage:
-          "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
-        label: "Password",
-        pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-        required: true,
-      },
          
   ];
+  const getorganismes=async ()=>{
+    const organismes= await GetallOrganism()
+    setorganism(organismes.data)
+  }
+
+  useEffect(()=>{
+    getorganismes();
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+    const data= new FormData()
+    data.append('name',values.name)
+    data.append('email',values.email)
+    data.append('organism',values.organism)
+    data.append('image',image)
+
+    const createduser= await CreateUser(data)
+    if(createduser.data && !createduser.data.errmsg){ 
+      navigate('/employee/display')
+    }
+    if(createduser.data.errmsg) seterr(createduser.data.errmsg)
+  };
+
+  const handlechange = async (e) => {
+    e.preventDefault();
+    setmg(e.target.files[0])
+
   };
 
   const onChange = (e) => {
@@ -57,14 +76,10 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="auth mx-auto justify-content-center mb-5">
+    <div className=" mx-auto justify-content-center mb-5">
       <form onSubmit={handleSubmit}>
         <h1>Ajout d'employe</h1>
-        {errmsg ? (
-          <div className="alert alert-danger text-center" role="alert">{errmsg}</div>
-        ):msg? (
-          <div className="alert alert-success text-center" role="alert">{msg}</div>
-        ):""}
+        {err?<h6 className="alert-danger">{err}</h6>:""}
         {inputs.map((input) => (
           <FormInput
             key={input.id}
@@ -73,6 +88,21 @@ const AddEmployee = () => {
             onChange={onChange}
           />
         ))}
+         <FormInput
+            type="file"
+            name="image"
+            onChange={handlechange}
+            label="image"
+          />
+
+       <select name="organism" class="form-select" aria-label="Default select example" onChange={onChange}>
+            <option selected>none</option>
+            {
+                organism.map(c=>(
+                    <option value={c._id}>{c.name}</option>
+                ))
+            }
+        </select>
         <button>Submit</button>
       </form>
     </div>

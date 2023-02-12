@@ -8,13 +8,16 @@ const User=require('./Router/User')
 const Role=require('./Router/Role')
 const organism=require('./Router/Organism')
 const Auth=require('./Router/Auth')
+const cors=require('cors')
 const Assignement=require('./Router/Assignement')
 const Historique=require('./Router/Historique')
 
 
-
+app.use(cors()) 
 app.use(express.json())
 app.use(urlencoded({extended:true}))
+app.use('/public',express.static('public'))
+
 app.use('/cours',Cours)
 app.use('/User',User)
 app.use('/Role',Role)

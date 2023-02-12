@@ -1,4 +1,5 @@
 const Cours = require('../Models/Cours')
+const Organism=require('../Models/Organism')
 const bcrypt=require('bcryptjs')
 
 
@@ -6,18 +7,20 @@ const bcrypt=require('bcryptjs')
 const creatCours= async(req,res)=>{
     const {body}=req
     body.image=req.file.filename
+    // body.start= new Date(body.start)
+    // body.end= new Date(body.end)
     const newCours= await Cours.create({...body})
     if(!newCours) throw Error('cours not added')
     res.json(newCours)
 }
 const getCourses= async(req,res)=>{
-    const Courses= await Cours.find()
+    const Courses= await Cours.find().populate({path:'organism',model:Organism})
     if(!Courses) throw Error('cours not found')
     res.json(Courses)
 }
 const getCours= async(req,res)=>{
     const {body}=req
-    const oneCours= await Cours.findOne({_id:body._id})
+    const oneCours= await Cours.findOne({_id:body.id}).populate({path:'organism',model:Organism})
     if(!oneCours) throw Error('cours not found')
     res.json(oneCours)
 }

@@ -1,18 +1,20 @@
 import Routesysteme from './router/routes';
 import './asset/css/App.css'
-import {useState} from 'react'
-import AuthContext from '../contexts/authContext';
+import AuthRoutes from './router/auth';
+
 
 function App() {
-  const [name,setname]=useState("")
-  return (
-    <AuthContext.Provider value={{name,setname}} >
-    <div className='auth'>
 
+  return (
+
+    <div >
+   <AuthRoutes/>
+   
    <Routesysteme/>
 
+
     </div>
-    </AuthContext.Provider>
+ 
 
   );
 }

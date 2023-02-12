@@ -10,7 +10,7 @@ router.get('/getone',verify(),TryCatch(getAssignement))
 router.get('/getall',verify(),TryCatch(getAssignementes))
 router.post('/update',verify(),TryCatch(UpdateAssignement))
 router.post('/remove',verify(),TryCatch(removeAssignement))
-router.post('/checkvalidassignement',verify(),ValidityChecker())
+router.get('/checkvalidassignement',verify(),ValidityChecker())
 
 router.use(errorHandler)
 

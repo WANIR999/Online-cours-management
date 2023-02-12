@@ -7,7 +7,7 @@ const {verify,postverif}=require('../middelwares/authVerification')
 
 
 router.post('/creat',verify(),Upload.single('image'),TryCatch(creatCours))
-router.get('/getone',verify(),TryCatch(getCours))
+router.post('/getone',verify(),TryCatch(getCours))
 router.get('/getall',verify(),TryCatch(getCourses))
 router.post('/update',verify(),Upload.single('image'),TryCatch(UpdateCours))
 router.post('/remove',verify(),TryCatch(removeCours))

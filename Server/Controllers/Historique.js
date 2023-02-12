@@ -1,4 +1,6 @@
 const Historique = require('../Models/Historique')
+const User=require('../Models/User')
+const Cours=require('../Models/Cours')
 const bcrypt=require('bcryptjs')
 
 
@@ -10,7 +12,7 @@ const creatHistorique= async(req,res)=>{
     res.json(newHistorique)
 }
 const getHistoriques= async(req,res)=>{
-    const Historiques= await Historique.find()
+    const Historiques= await Historique.find().populate({path:'user',model:User}).populate({path:'cours',model:Cours})
     if(!Historiques) throw Error('Historique not found')
     res.json(Historiques)
 }

@@ -2,13 +2,17 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import "../../asset/css/App.css";
+import { GetallOrganism ,removeOrganism} from '../../api/Organism';
 
-const DisplayOrganism = ()=> {
+const DisplayOrganism= ()=> {
+
   const navigate=useNavigate()
-    const [Data,setvalues]=useState([])
+    const [Data,setdata]=useState([])
      
     const data= async ()=>{
-       
+       const organismes= await GetallOrganism()
+      if(organismes.data)setdata(organismes.data)
+      // console.log(organismes)
 
     }
     useEffect(()=>{
@@ -22,9 +26,10 @@ const DisplayOrganism = ()=> {
 
     const remove= async (e)=>{
       e.preventDefault()
-     
+      const removed= await removeOrganism(e.target.value)
+      window.location.reload(false)
     }
-
+  console.log(Data)
 
   return (
     <div>
@@ -32,28 +37,28 @@ const DisplayOrganism = ()=> {
            <h3 className="ms-5">Organismes</h3>
            <hr></hr>   
       <div className="container shadow d-flex flex-column justify-content-start tblw ">
-      <h2><Link to="/auth/add"  className="text-secondary" ><i class="bi bi-building-fill"></i></Link></h2>
-       <div className="bg-white mt-3">
+      <h2><Link to="/organism/add"  className="text-secondary" ><i class="bi bi-building-fill-add"></i></Link></h2>
+       <div className="bg-white tbl mt-3">
         
         <table className="table table-bordered">
         <thead>
-            <tr>
-            <th scope="col" className='text-center'>Nom d'organism </th>  
-            <th scope="col" className='text-center'>Action</th>  
+            <tr> 
+            <th scope="col" className='text-center emlsize'>Nom d'organisme </th>    
+            <th scope="col" className='text-center emlsize'>action</th>   
             </tr>
         </thead>
         <tbody >
           {
            Data.map((e)=>(
+            e._id!=null?
                     <tr key={e._id}>
-                    <td className='text-center'>{e.name}</td>
-                    <td className='text-center'>
-                        <button type="submit"  value={e._id} onClick={update}  className="btn btn-primary w-25 h-25 "></button>
-                        </td>
-                        <td className='text-center'>
-                        <button type="submit"  value={e._id} onClick={remove}  className=" btn btn-danger w-25 h-25 "></button>
-                        </td>
+                    <td className='text-center emlsize'>{e.name}</td>
+                    <td className='d-flex justify-content-around'>
+                        <button type="submit"  value={e._id} onClick={update}  className="btn btn-primary btntxt">editer</button>
+                        <button type="submit"  value={e._id} onClick={remove}  className="btn btn-danger  btntxt ">suprimer</button>
+                    </td>
                     </tr>
+                    :""
             ))
           }
         

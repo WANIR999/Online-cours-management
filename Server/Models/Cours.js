@@ -11,7 +11,7 @@ const coursschema= new mongoose.Schema({
     image:{
         type:String,   
     },
-    Organism:{
+    organism:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'organism'
     },

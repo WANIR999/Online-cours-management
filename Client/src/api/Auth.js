@@ -1,9 +1,14 @@
 import axios from "axios";
 
-const Login= async(body)=>{
-  const log= await axios.post('http://localhost:8080/assignement/checkvalidassignement',body)
-  console.log(log.data)
+const Loginapi= async(body)=>{
+ return await axios.post('http://localhost:8080/auth/login',body)
+}
+const Logoutapi= async(body)=>{
+ return await axios.get('http://localhost:8080/auth/logout')
+}
+const DecryptToken= async(token)=>{
+ return await axios.post('http://localhost:8080/auth/decrypt',{token:token})
 }
 
 
-export default {Login}
+export  {Loginapi,DecryptToken,Logoutapi}

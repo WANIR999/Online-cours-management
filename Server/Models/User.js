@@ -25,7 +25,7 @@ const Userschema= new mongoose.Schema({
         ref:'role',
         default:'63b7e1acfd7e3378a469aee5'
     },
-    Organism:{
+    organism:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'organism',
         default:null
